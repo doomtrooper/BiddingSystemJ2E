@@ -1,0 +1,20 @@
+create database bidworld;
+
+use bidworld;
+
+create table login( id int(10) not null auto_increment primary key,name varchar(20),company varchar(20),contact int(10),nationality varchar(10));
+
+create table item(itemid int(10) not null auto_increment primary key,userid int(10), itemname varchar(20),description varchar(100),category varchar(10),constraint fkey1 foreign  key(userid) references login(id));
+
+
+create table auction(auctionid int(10) not null primary key auto_increment,itemid int(10) not null, userid int(10),reserverprice double,length int(10), type varchar(20),status int(10),constraint fkey2 foreign key(itemid) references item(itemid),constraint fkey3 foreign key(userid) references login(id));
+
+alter table login modify column contact varchar(20);
+
+insert into login(name,company,contact,nationality,password) values("root","company","9031247120","indian","qwerty");
+
+create table bids(bidid int(10) primary key not null auto_increment,auctionid int(10),userid int(10),bidprice double,constraint fkey5 foreign key(auctionid) references auction(auctionid),constraint fkey4 foreign key(userid) references login(id));
+
+alter table auction alter status set default 0;
+
+alter table auction change reserverprice reserveprice double;
